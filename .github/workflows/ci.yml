@@ -12,6 +12,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
+        lfs: true
+        token: ${{ secrets.ACCESS_TOKEN }}
         submodules: recursive
   
     - name: Set up Node.js
