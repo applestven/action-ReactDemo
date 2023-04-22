@@ -1,23 +1,34 @@
-name: GitHub Actions Build and Deploy Demo
+name: Deploy React App to GitHub Pages
+
 on:
   push:
     branches:
-      - main
+    - main   # 如果你的主分支不是main，请替换它
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
-        persist-credentials: false
-    - name: Install and Build
+        submodules: recursive
+  
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+  
+    - name: Install dependencies
       run: |
         npm install
+        
+    - name: Build
+      run: |
         npm run build
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+  
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+        branch: gh-pages
+        folder: build
