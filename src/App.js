@@ -7,6 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
+          测试gitaction的持续集成部署
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
